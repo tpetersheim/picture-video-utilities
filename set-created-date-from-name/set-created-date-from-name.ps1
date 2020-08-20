@@ -42,16 +42,18 @@ foreach ($file in $filesToProcess){
         $date_from_file = Get-Date $date
         Write-Output "Parsed date: $($date_from_file.ToString("s"))"
 
-        Write-Output "Setting file.CreationTime"
+        Write-Output "Setting file.CreationTime, LastAccessTime, LastWriteTime"
         if ($DryRun) 
         { 
             "Dry run ... set file.CreationTime = $date_from_file" 
+            "Dry run ... set file.LastAccessTime = $date_from_file" 
+            "Dry run ... set file.LastWriteTime = $date_from_file" 
         }
         else
         {
             $file.CreationTime   = $date_from_file
-            #$file.LastAccessTime = $date_from_file
-            #$file.LastWriteTime  = $date_from_file
+            $file.LastAccessTime = $date_from_file
+            $file.LastWriteTime  = $date_from_file
         }
 
         Write-Output "Setting CreateDate with exiftool"
